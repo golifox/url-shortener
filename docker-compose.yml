@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    environment:
+      - LINK_LENGTH=7
+      - PUBLIC_URL=http://localhost:3000
+      - REDIS_URL=redis:6379
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+    driver: local
